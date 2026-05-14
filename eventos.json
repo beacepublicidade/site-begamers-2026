@@ -1,0 +1,91 @@
+{
+  "_comentario": {
+    "como_editar": "Cada evento é um objeto no array 'eventos' abaixo.",
+    "campos": {
+      "id": "Número único identificador — não repetir.",
+      "dia": "Dia do evento (ex: '20'). Use '∞' para eventos contínuos.",
+      "mes": "Mês em 3 letras maiúsculas: JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ. Use '2026' para eventos contínuos.",
+      "titulo": "Título do evento em maiúsculas.",
+      "descricao": "Texto descritivo curto exibido abaixo do título.",
+      "local": "Local exibido na metainfo (ex: 'SÃO PAULO · BR').",
+      "periodo": "Período exibido na metainfo (ex: '14-15 DEZ · LAN').",
+      "botao": "Texto do botão/tag do evento (ex: 'INSCRIÇÕES', 'EM BREVE').",
+      "link": "URL do botão. Use '#' se ainda não tiver link.",
+      "destaque": "true = evento fixo/contínuo (sempre exibido no topo). false = evento datado normal."
+    }
+  },
+  "eventos": [
+    {
+      "id": 1,
+      "dia": "∞",
+      "mes": "2026",
+      "titulo": "ROAD TO GLORY · PROGRAMA DE DESENVOLVIMENTO",
+      "descricao": "Inscrições abertas o ano todo · trials presenciais no bootcamp de São Paulo.",
+      "local": "BOOTCAMP · SP",
+      "periodo": "PROGRAMA CONTÍNUO",
+      "botao": "INSCRIÇÕES",
+      "link": "#",
+      "destaque": true
+    },
+    {
+      "id": 2,
+      "dia": "20",
+      "mes": "JUN",
+      "titulo": "WSOW QUALIFIERS · LATAM",
+      "descricao": "Eliminatórias regionais para o World Series of Warzone · 20-22 de junho.",
+      "local": "LATAM · ONLINE",
+      "periodo": "20-22 JUN",
+      "botao": "CLASSIFICATÓRIA",
+      "link": "#",
+      "destaque": false
+    },
+    {
+      "id": 3,
+      "dia": "07",
+      "mes": "JUL",
+      "titulo": "EWC · ESPORTS WORLD CUP WARZONE",
+      "descricao": "A maior competição global de esports · Begamers entre as orgs convidadas · jul-ago.",
+      "local": "RIYADH · KSA",
+      "periodo": "JUL-AGO · LAN",
+      "botao": "EM BREVE",
+      "link": "#",
+      "destaque": false
+    },
+    {
+      "id": 4,
+      "dia": "15",
+      "mes": "AGO",
+      "titulo": "BEGA EM ORLANDO",
+      "descricao": "Série documental seguindo o squad em sua primeira temporada internacional fora do Brasil.",
+      "local": "ORLANDO · US",
+      "periodo": "YT · TWITCH · IG",
+      "botao": "DOCUMENTÁRIO",
+      "link": "https://www.youtube.com/watch?v=0AspucKtBGA",
+      "destaque": false
+    },
+    {
+      "id": 5,
+      "dia": "29",
+      "mes": "OUT",
+      "titulo": "GAMESCOM LATAM 2026",
+      "descricao": "Ativação Begamers no maior festival de games da América Latina · ativações, painéis e meet-ups.",
+      "local": "SÃO PAULO · BR",
+      "periodo": "29 OUT - 01 NOV",
+      "botao": "FESTIVAL",
+      "link": "#",
+      "destaque": false
+    },
+    {
+      "id": 6,
+      "dia": "14",
+      "mes": "DEZ",
+      "titulo": "BGXP · BEGAMERS EXPERIENCE",
+      "descricao": "Nosso evento próprio em São Paulo · finais, watch party, marcas parceiras e a comunidade reunida · 14-15 dez.",
+      "local": "SÃO PAULO · BR",
+      "periodo": "14-15 DEZ · LAN",
+      "botao": "EVENTO PRÓPRIO",
+      "link": "#",
+      "destaque": false
+    }
+  ]
+}

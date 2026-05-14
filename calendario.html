@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="brand-begamers">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário 2026 · Begamers</title>
+  <meta name="description" content="Todos os eventos Begamers em 2026 — competições, ativações e conteúdo.">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sections.css">
+  <style>
+    /* ---- Página calendário ---- */
+    .cal-hero {
+      padding-top: 140px;
+      padding-bottom: 56px;
+      background: #000;
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .cal-hero .eyebrow { margin-bottom: 20px; }
+    .cal-hero h1 {
+      font-family: var(--font-display-heavy);
+      font-weight: 900;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: #fff;
+      margin: 0 0 24px;
+    }
+    .cal-hero h1 span { color: var(--accent); }
+    .cal-hero p {
+      font-size: 16px;
+      color: var(--fg2);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* ---- Filtro de meses ---- */
+    .cal-filter {
+      padding: 32px 0 24px;
+      background: #000;
+      position: sticky;
+      top: 96px;
+      z-index: 10;
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .cal-filter-inner {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg3);
+      margin-right: 8px;
+    }
+    .month-btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid #262626;
+      color: var(--fg3);
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background 120ms, color 120ms, border-color 120ms;
+    }
+    .month-btn:hover {
+      border-color: #444;
+      color: #fff;
+    }
+    .month-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ---- Lista de eventos ---- */
+    .cal-body {
+      padding: 48px 0 96px;
+      background: #000;
+      min-height: 60vh;
+    }
+    .cal-month-group { margin-bottom: 56px; }
+    .cal-month-label {
+      font-family: var(--font-display-heavy);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cal-month-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #1c1c1c;
+    }
+    .cal-event-list { display: flex; flex-direction: column; gap: 2px; }
+
+    /* eventos passados */
+    .event.past { opacity: 0.38; pointer-events: none; }
+
+    /* mensagem vazia */
+    .cal-empty {
+      text-align: center;
+      padding: 64px 0;
+      color: var(--fg3);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Begamers — Home">
+      <img src="logo/begamers-logo-white.png" class="nav-logo-img" alt="Begamers">
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="nav-links" aria-label="Navegação principal">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#sobre">Sobre</a>
+      <a href="index.html#roster">Atletas</a>
+      <a href="calendario.html" class="active">Eventos</a>
+      <a href="#">Begamerstore</a>
+      <a href="index.html#parceiros">Parcerias</a>
+    </nav>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="cal-hero">
+  <div class="container">
+    <span class="eyebrow">// CALENDÁRIO</span>
+    <h1>AGENDA<br><span>2026.</span></h1>
+    <p>Todos os eventos, competições e ativações da Begamers ao longo do ano. Filtre por mês e não perca nada.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FILTRO
+============================================================ -->
+<div class="cal-filter">
+  <div class="container cal-filter-inner">
+    <span class="filter-label">Filtrar</span>
+    <button class="month-btn active" data-mes="TODOS">TODOS</button>
+    <button class="month-btn" data-mes="JAN">JAN</button>
+    <button class="month-btn" data-mes="FEV">FEV</button>
+    <button class="month-btn" data-mes="MAR">MAR</button>
+    <button class="month-btn" data-mes="ABR">ABR</button>
+    <button class="month-btn" data-mes="MAI">MAI</button>
+    <button class="month-btn" data-mes="JUN">JUN</button>
+    <button class="month-btn" data-mes="JUL">JUL</button>
+    <button class="month-btn" data-mes="AGO">AGO</button>
+    <button class="month-btn" data-mes="SET">SET</button>
+    <button class="month-btn" data-mes="OUT">OUT</button>
+    <button class="month-btn" data-mes="NOV">NOV</button>
+    <button class="month-btn" data-mes="DEZ">DEZ</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     LISTA
+============================================================ -->
+<section class="cal-body">
+  <div class="container">
+    <div id="cal-list"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/begamers-logo-principal-white.png" alt="BEGAMERS — Gaming & E-sports" style="height: 56px; width: auto; display: block; margin-bottom: 24px;">
+        <p>Mais que um time. Um movimento brasileiro de esports e cultura gamer — em cinco pilares: Competições, Conteúdo, Lifestyle, Tecnologia e Business.</p>
+        <span class="mono">/ TRANSFORMANDO PAIXÃO EM IMPACTO GLOBAL</span>
+      </div>
+      <div class="footer-col">
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#sobre">Sobre</a></li>
+          <li><a href="index.html#roster">Atletas</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+          <li><a href="index.html#parceiros">Parcerias</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Movimento</h5>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=Kj1hKT5QCqs" target="_blank" rel="noopener">BGXP 2024</a></li>
+          <li><a href="https://www.youtube.com/watch?v=6hZJwMYem8k" target="_blank" rel="noopener">Road to Glory 2025</a></li>
+          <li><a href="https://www.youtube.com/watch?v=VXsNB97p3Ew" target="_blank" rel="noopener">Gamescom LATAM 2026</a></li>
+          <li><a href="#">Begamerstore</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="mailto:contato@begamersgg.com.br">contato@begamersgg.com.br</a></li>
+          <li><a href="https://wa.me/5511986496229" target="_blank" rel="noopener">WhatsApp: +55 11 98649-6229</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 BEGAMERS — Todos os direitos reservados</span>
+      <div class="socials" aria-label="Redes sociais">
+        <a href="https://www.twitch.tv/begamersgg" target="_blank" rel="noopener" aria-label="Twitch"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 2v17h5v3h3l3-3h4l5-5V2H4zm17 11l-3 3h-5l-3 3v-3H6V4h15v9zM18 7h-2v5h2V7zm-5 0h-2v5h2V7z"/></svg></a>
+        <a href="https://discord.gg/5q2V9XfMUn" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.03.01.06.02.09.01 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/></svg></a>
+        <a href="https://www.instagram.com/begamersgg" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.youtube.com/@begamersgg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5s-.22-1.55-.9-2.23c-.85-.9-1.81-.9-2.25-.95C16.62 4 12 4 12 4s-4.62 0-7.85.32c-.44.05-1.4.05-2.25.95C1.22 5.95 1 7.5 1 7.5S.78 9.31.78 11.13v1.74c0 1.82.22 3.63.22 3.63s.22 1.55.9 2.23c.85.9 1.97.87 2.47.97C6.25 19.97 12 20 12 20s4.62 0 7.85-.32c.44-.05 1.4-.05 2.25-.95.68-.68.9-2.23.9-2.23s.22-1.81.22-3.63v-1.74C23.22 9.31 23 7.5 23 7.5zM9.75 14.85V8.13l6 3.37-6 3.35z"/></svg></a>
+        <a href="https://www.twitter.com/begamersgg" target="_blank" rel="noopener" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></a>
+        <a href="https://www.tiktok.com/@begamersgg" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-5.86 12 6.85 6.85 0 0 0 11.65-4.85V8.95a8.32 8.32 0 0 0 4.86 1.55v-3.4a4.83 4.83 0 0 1-1.42-.41z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('nav');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 10);
+    nav.classList.toggle('nav-hidden', y > lastY && y > 80);
+    lastY = y;
+  }, { passive: true });
+
+  /* Hamburger */
+  const toggle = document.getElementById('nav-toggle');
+  const links  = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => {
+    const open = toggle.classList.toggle('open');
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+</script>
+
+<script>
+  /* ---- Calendário dinâmico ---- */
+  (function () {
+    const MES_ORDER = { JAN:1,FEV:2,MAR:3,ABR:4,MAI:5,JUN:6,JUL:7,AGO:8,SET:9,OUT:10,NOV:11,DEZ:12 };
+    const MES_NOMES = { JAN:'Janeiro',FEV:'Fevereiro',MAR:'Março',ABR:'Abril',MAI:'Maio',JUN:'Junho',JUL:'Julho',AGO:'Agosto',SET:'Setembro',OUT:'Outubro',NOV:'Novembro',DEZ:'Dezembro' };
+    const ARROW = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+    let allEvents = [];
+    let activeFilter = 'TODOS';
+
+    function eventDate(e) {
+      if (e.destaque) return new Date(0);
+      const m = MES_ORDER[e.mes] || 1;
+      return new Date(2026, m - 1, parseInt(e.dia) || 1);
+    }
+
+    function isPast(e) {
+      if (e.destaque) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return eventDate(e) < today;
+    }
+
+    function buildCard(e) {
+      const dia = e.destaque ? '∞' : e.dia;
+      const tc  = e.destaque ? 'live' : 'upcoming';
+      const tag = e.destaque
+        ? '<span class="live-dot"></span> ' + e.botao
+        : e.botao;
+      const past = isPast(e) ? ' past' : '';
+      const ext = e.link !== '#' ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${e.link}" class="event${past}"${ext}>
+        <div class="event-date"><div class="d">${dia}</div><span class="m">${e.mes}</span></div>
+        <div class="event-main">
+          <h4>${e.titulo}</h4>
+          <div class="sub">${e.descricao}</div>
+        </div>
+        <div class="event-meta">
+          <span class="line">● ${e.local}</span>
+          <span class="line">► ${e.periodo}</span>
+        </div>
+        <span class="event-tag ${tc}">${tag}</span>
+        <div class="event-arrow" aria-hidden="true">${ARROW}</div>
+      </a>`;
+    }
+
+    function render() {
+      const list = document.getElementById('cal-list');
+      let events = allEvents;
+
+      if (activeFilter !== 'TODOS') {
+        events = allEvents.filter(e => e.destaque || e.mes === activeFilter);
+      }
+
+      if (!events.length) {
+        list.innerHTML = '<p class="cal-empty">Nenhum evento neste mês.</p>';
+        return;
+      }
+
+      /* Agrupa por mês */
+      const groups = {};
+      events.forEach(e => {
+        const key = e.destaque ? 'CONTÍNUO' : e.mes;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(e);
+      });
+
+      let html = '';
+      /* Contínuos primeiro, depois meses em ordem */
+      const keys = Object.keys(groups).sort((a, b) => {
+        if (a === 'CONTÍNUO') return -1;
+        if (b === 'CONTÍNUO') return 1;
+        return (MES_ORDER[a] || 99) - (MES_ORDER[b] || 99);
+      });
+
+      keys.forEach(k => {
+        const label = k === 'CONTÍNUO' ? 'Contínuo · 2026' : (MES_NOMES[k] || k) + ' · 2026';
+        html += `<div class="cal-month-group">
+          <div class="cal-month-label">${label}</div>
+          <div class="cal-event-list">${groups[k].map(buildCard).join('')}</div>
+        </div>`;
+      });
+
+      list.innerHTML = html;
+    }
+
+    /* Filtros */
+    document.querySelectorAll('.month-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.mes;
+        render();
+      });
+    });
+
+    const EVENTOS = [
+      { id:1, dia:'∞',  mes:'2026', titulo:'ROAD TO GLORY · PROGRAMA DE DESENVOLVIMENTO', descricao:'Inscrições abertas o ano todo · trials presenciais no bootcamp de São Paulo.', local:'BOOTCAMP · SP', periodo:'PROGRAMA CONTÍNUO', botao:'INSCRIÇÕES', link:'#', destaque:true },
+      { id:2, dia:'20', mes:'JUN',  titulo:'WSOW QUALIFIERS · LATAM',                     descricao:'Eliminatórias regionais para o World Series of Warzone · 20-22 de junho.',         local:'LATAM · ONLINE',  periodo:'20-22 JUN',         botao:'CLASSIFICATÓRIA', link:'#', destaque:false },
+      { id:3, dia:'07', mes:'JUL',  titulo:'EWC · ESPORTS WORLD CUP WARZONE',             descricao:'A maior competição global de esports · Begamers entre as orgs convidadas · jul-ago.', local:'RIYADH · KSA', periodo:'JUL-AGO · LAN',     botao:'EM BREVE',        link:'#', destaque:false },
+      { id:4, dia:'15', mes:'AGO',  titulo:'BEGA EM ORLANDO',                             descricao:'Série documental seguindo o squad em sua primeira temporada internacional fora do Brasil.', local:'ORLANDO · US', periodo:'YT · TWITCH · IG', botao:'DOCUMENTÁRIO', link:'https://www.youtube.com/watch?v=0AspucKtBGA', destaque:false },
+      { id:5, dia:'29', mes:'OUT',  titulo:'GAMESCOM LATAM 2026',                         descricao:'Ativação Begamers no maior festival de games da América Latina · ativações, painéis e meet-ups.', local:'SÃO PAULO · BR', periodo:'29 OUT - 01 NOV', botao:'FESTIVAL', link:'#', destaque:false },
+      { id:6, dia:'14', mes:'DEZ',  titulo:'BGXP · BEGAMERS EXPERIENCE',                  descricao:'Nosso evento próprio em São Paulo · finais, watch party, marcas parceiras e a comunidade reunida · 14-15 dez.', local:'SÃO PAULO · BR', periodo:'14-15 DEZ · LAN', botao:'EVENTO PRÓPRIO', link:'#', destaque:false }
+    ];
+    const destaques = EVENTOS.filter(e => e.destaque);
+    const datados   = EVENTOS.filter(e => !e.destaque).sort((a,b) => eventDate(a) - eventDate(b));
+    allEvents = [...destaques, ...datados];
+    render();
+  })();
+</script>
+
+</body>
+</html>
