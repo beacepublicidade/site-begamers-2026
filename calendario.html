@@ -15,7 +15,27 @@
       padding-bottom: 56px;
       background: #000;
       border-bottom: 1px solid #1c1c1c;
+      position: relative;
+      overflow: hidden;
     }
+    .cal-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('assets/agenda.jpg') center/cover no-repeat;
+      opacity: 0.28;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .cal-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.90) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .cal-hero .container { position: relative; z-index: 2; }
     .cal-hero .eyebrow { margin-bottom: 20px; }
     .cal-hero h1 {
       font-family: var(--font-display-heavy);
