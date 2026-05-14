@@ -674,8 +674,8 @@
       const dia = e.destaque ? '∞' : e.dia;
       const tc  = e.destaque ? 'live' : 'upcoming';
       const tag = e.destaque ? '<span class="live-dot"></span> ' + e.botao : e.botao;
-      const ext = e.link !== '#' ? ' target="_blank" rel="noopener"' : '';
-      return `<a href="${e.link}" class="event"${ext}>
+      const href = e.destaque ? e.link : 'calendario.html?mes=' + e.mes;
+      return `<a href="${href}" class="event">
         <div class="event-date"><div class="d">${dia}</div><span class="m">${e.mes}</span></div>
         <div class="event-main">
           <h4>${e.titulo}</h4>

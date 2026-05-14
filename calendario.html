@@ -564,8 +564,9 @@
         document.getElementById('bega-feat-desc').textContent = featured.descricao;
       }
       renderCalendar();
+      autoOpenFromURL();
     })
-    .catch(() => renderCalendar());
+    .catch(() => { renderCalendar(); autoOpenFromURL(); });
 
   function changeMonth(dir) {
     currentMonth += dir;
@@ -671,6 +672,25 @@
       renderCalendar();
     });
   });
+
+  function autoOpenFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const mes = params.get('mes');
+    if (!mes) return;
+    const mesUp = mes.toUpperCase();
+    const mesNum = MES_MAP[mesUp];
+    if (!mesNum) return;
+    currentMonth = mesNum - 1;
+    currentYear = 2026;
+    renderCalendar();
+    const ev = eventos.find(e => !e.destaque && e.mes.toUpperCase() === mesUp);
+    if (!ev) return;
+    const dia = parseInt(ev.dia);
+    document.querySelectorAll('#bega-grid .bega-day.has-event').forEach(cell => {
+      const numEl = cell.querySelector('.bega-day-num');
+      if (numEl && parseInt(numEl.textContent) === dia) showDetail(ev, cell);
+    });
+  }
 
   function syncFilterBtns() {
     document.querySelectorAll('.month-btn').forEach(btn => {
