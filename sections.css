@@ -171,7 +171,7 @@
   position: absolute;
   top: 0; bottom: 0; left: 0;
   width: 35%;
-  background: url('assets/lado direito_midia.jpg') center/cover no-repeat;
+  background: url('assets/lado direito_midia.webp') center/cover no-repeat;
   opacity: 0.18;
   -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 100%);
   mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 100%);
@@ -876,7 +876,7 @@
   position: absolute;
   top: 0; bottom: 0; left: 0;
   width: 38%;
-  background: url('assets/road_to_glory.png') center/cover no-repeat;
+  background: url('assets/road_to_glory.webp') center/cover no-repeat;
   opacity: 0.12;
   -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.85) 0%, transparent 100%);
   mask-image: linear-gradient(to right, rgba(0,0,0,0.85) 0%, transparent 100%);
@@ -960,7 +960,7 @@
 .player:hover .player-photo { transform: scale(1.04); }
 .player-texture {
   position: absolute; inset: 0;
-  background: url('assets/fundo_cards.jpg') center/cover no-repeat;
+  background: url('assets/fundo_cards.webp') center/cover no-repeat;
   z-index: 0;
   pointer-events: none;
 }
