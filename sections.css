@@ -29,17 +29,6 @@
   filter: blur(8px);
   animation: heroAura 9s ease-in-out infinite;
 }
-/* grid scan lines */
-.hero::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, transparent 0 80px, rgba(255,255,255,0.025) 80px 81px),
-    repeating-linear-gradient(90deg, transparent 0 80px, rgba(255,255,255,0.025) 80px 81px);
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 75%);
-}
 .hero-bottom-rule {
   position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
@@ -586,17 +575,17 @@
   overflow: hidden;
 }
 
-/* scanline vermelha — começa após área do texto */
+/* scanline vermelha — varre todo o hero */
 .hero-visual::after {
   content: "";
   position: absolute;
-  left: 42%; right: 0; top: 0;
+  left: 0; right: 0; top: 0;
   height: 2px;
   background: linear-gradient(to right,
     transparent 0%,
-    rgba(204,0,0,0.45) 18%,
+    rgba(204,0,0,0.30) 12%,
     rgba(204,0,0,0.70) 50%,
-    rgba(204,0,0,0.45) 82%,
+    rgba(204,0,0,0.30) 88%,
     transparent 100%);
   filter: blur(1px);
   animation: scanSweep 11s linear infinite;
