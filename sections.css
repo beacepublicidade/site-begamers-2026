@@ -60,14 +60,6 @@
   text-shadow: 0 2px 20px rgba(0,0,0,0.95), 0 4px 48px rgba(0,0,0,0.70);
 }
 .hero h1 .red { color: var(--accent); position: relative; }
-.hero h1 .red::after {
-  content: ""; position: absolute;
-  left: 0; right: 6%; bottom: -0.04em;
-  height: 0.06em;
-  background: var(--accent);
-  opacity: 0.6;
-  filter: blur(6px);
-}
 .hero h1 .strike {
   position: relative;
   display: inline-block;
@@ -650,20 +642,6 @@
   z-index: 3;
 }
 
-/* grain VHS animado */
-.hv-photo-grain {
-  position: absolute; inset: -10px;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-    radial-gradient(rgba(255,255,255,0.028) 1px, transparent 1px);
-  background-size: 3px 3px, 7px 7px;
-  background-position: 0 0, 2px 2px;
-  mix-blend-mode: overlay;
-  opacity: 0.55;
-  pointer-events: none;
-  animation: grainShift 0.18s steps(1) infinite;
-  z-index: 4;
-}
 .hv-photo-caption {
   position: absolute;
   right: 28px; bottom: 28px;
